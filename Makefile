@@ -6,6 +6,11 @@ fmt: ## format
 lint: ## lint
 	./gradlew detekt
 
+.PHONY: gen.openapi
+gen.openapi: ## openapi.yamlを生成する
+	[ -f build/springdoc/openapi.yaml ] && rm build/springdoc/openapi.yaml || true
+	./gradlew generateOpenApiDocs
+
 ################################################################################
 # Utility-Command help
 ################################################################################

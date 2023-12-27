@@ -21,6 +21,20 @@ plugins {
 	 * KotlinのLinter/Formatter
 	 */
 	id("io.gitlab.arturbosch.detekt") version "1.23.4"
+
+	/**
+	 * springdoc
+	 *
+	 * URL
+	 * - https://springdoc.org/
+	 * Main 用途
+	 * - OpenAPI 仕様に基づいたドキュメントを生成する
+	 * Sub 用途
+	 * - なし
+	 * 概要
+	 * コードから OpenAPI 仕様に基づいたドキュメントの生成ライブラリ
+	 */
+	id("org.springdoc.openapi-gradle-plugin") version "1.8.0"
 }
 
 group = "com.example"
@@ -49,21 +63,14 @@ dependencies {
 	 * - format自動適用オプションの autoCorrect が使えるようになる
 	 */
 	detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0")
-}
 
-/**
- * detektの設定
- *
- * 基本的に全て `detekt-override.yml` で設定する
- */
-detekt {
 	/**
-	 * ./gradlew detektGenerateConfig でdetekt.ymlが生成される(バージョンが上がる度に再生成する)
+	 * springdoc の gradle 拡張
+	 *
+	 * 概要
+	 * - CLI から springdoc を利用して OpenAPI を 生成する
 	 */
-	config = files(
-		"$projectDir/config/detekt/detekt.yml",
-		"$projectDir/config/detekt/detekt-override.yml",
-	)
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 }
 
 /**
@@ -90,4 +97,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+openApi {
+	apiDocsUrl.set("http://localhost:8080/v3/api-docs.yaml")
+	outputDir.set(project.layout.buildDirectory.dir("springdoc"))
+	outputFileName.set("openapi.yaml")
 }
