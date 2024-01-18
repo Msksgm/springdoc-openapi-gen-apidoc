@@ -71,6 +71,20 @@ dependencies {
 	 * - CLI から springdoc を利用して OpenAPI を 生成する
 	 */
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+	/**
+	 * Spring Boot Starter Validation
+	 *
+	 * MavenCentral
+	 * - https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+	 * Main用途
+	 * - コントローラーのバリデーションのために利用する
+	 * Sub用途
+	 * - 無し
+	 * 概要
+	 * - Validation を実装した際に、本ライブラリがなければ、バリデーションが動作しない
+	 */
+	implementation("org.springframework.boot:spring-boot-starter-validation")
 }
 
 /**
